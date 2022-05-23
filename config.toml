@@ -1,0 +1,18 @@
+base_url = "https://y3ll0wlife.github.io"
+title = "y3ll0w"
+theme = "apollo"
+build_search_index = false
+generate_feed = true
+minify_html = true
+
+[markdown]
+highlight_code = true
+highlight_theme = "ayu-dark"
+
+[extra]
+use_cdn = false
+theme = "dark"      
+
+menu = [
+    { name = "/posts", url= "/posts", weight= 1 },
+]

